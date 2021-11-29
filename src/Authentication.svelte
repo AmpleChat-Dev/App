@@ -244,7 +244,7 @@
     #logo-area {
         grid-area: 'logo';
         height: 19rem;
-        background-image: url('main-logo.svg');
+        /* background-image: url('main-logo.svg'); */
         background-repeat: no-repeat;
         background-position: center;
     }
