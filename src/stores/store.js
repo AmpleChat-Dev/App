@@ -1,13 +1,33 @@
 import { writable } from 'svelte/store'
+
 export const authenticated = writable(getAuthenticatedState())
-authenticated.subscribe(nval => localStorage.setItem("P98xVtnzyu", nval))
+
+authenticated.subscribe(nval => {
+
+    if (nval == undefined)
+        nval = false;
+
+    sessionStorage.setItem("authenticated", nval)
+})
 
 function getAuthenticatedState() {
-    if (localStorage.getItem("P98xVtnzyu") == null) {
-        localStorage.setItem("P98xVtnzyu", false)
+    let state = sessionStorage.getItem("authenticated")
+
+    if (!state)
         return false
-    } else {
-        let state = localStorage.getItem("P98xVtnzyu")
-        return state == 'true'
-    }
+
+    if (state == 'true')
+        return true
+}
+
+export function saveItem(key, value) {
+    sessionStorage.setItem(key, value)
+}
+
+export function getItem(key) {
+    return sessionStorage.getItem(key)
+}
+
+export function removeKey(key) {
+    sessionStorage.removeItem(key)
 }
