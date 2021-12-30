@@ -6,14 +6,15 @@
 <svelte:head>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </svelte:head>
-<main>
-	{#if !$authenticated}
-		<Authentication />
-	{:else}
-		<Home />
-	{/if}
-</main>
+
+{#if !$authenticated}
+<Authentication />
+{:else}
+<Home />
+{/if}
 
 <style>
-
+:root {
+	--message-other-content: 'Other: '
+}
 </style>
