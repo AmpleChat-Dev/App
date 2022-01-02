@@ -271,6 +271,7 @@
   </div>
 </div>
 
+
 <style>
   #logo-area {
     grid-area: "logo";
