@@ -8,12 +8,22 @@
     export let errorMessage;
 
     export function handleResponse(response){
+        if(response.error)
+        {
+            error.style.color = 'red'
+        }
+        else
+        {
+            error.style.color = 'green'
+        }
         errorMessage = response.message;
     }
 
     let userName;
 
     let showModal = false;
+
+    let error;
 
     function toggelModal(){
         showModal = !showModal;
@@ -45,7 +55,7 @@
     </div>
     <div id="contact-form-body">
         <input placeholder="Username" bind:value={userName}>
-        <div id="contact-form-error">{errorMessage}</div>
+        <div bind:this={error} id="contact-form-error">{errorMessage}</div>
         <button on:click={send}>Send Contact Request</button>
     </div>
 </div>
