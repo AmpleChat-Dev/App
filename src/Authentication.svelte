@@ -24,7 +24,7 @@
   let REGISTER = 1;
   let authenticationState = REGISTER;
   let client;
-  let accountUrl = "ws://localhost:49152/account";
+  let accountUrl = "wss://localhost:49151/account";
   let errorMessage;
   let accountCreated = false;
   let canSend = false;
@@ -275,7 +275,7 @@
   #logo-area {
     grid-area: "logo";
     height: 19rem;
-    background-image: url("main-logo.svg");
+    /* background-image: url("main-logo.svg"); */
     background-repeat: no-repeat;
     background-position: center;
   }
