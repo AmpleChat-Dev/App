@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { authenticated, getItem, saveItem, removeKey } from "./stores/store";
+  import { authenticated, getItem, removeKey } from "./stores/store";
   import AddContact from "./AddContact.svelte";
   import CreateGroup from "./CreateGroup.svelte";
   import {
@@ -24,7 +24,7 @@
   };
 
   let client;
-  let accountUrl = "ws://localhost:49152/chat";
+  let accountUrl = "ws://localhost:49151/chat";
   let errorMessage;
   let canSend;
   let disabled;
@@ -114,8 +114,10 @@
 
       case CONTACT_REQUEST_PACKET:
         let requests = JSON.parse(packet.requests);
+
         if (requests) {
           let temp = [];
+
           for (let i = 0; i < requests.length; i++) {
             temp.push({
               name: requests[i].senderName,
@@ -124,14 +126,17 @@
           }
           contactRequest = temp;
         }
+
         contactRequest = contactRequest;
         break;
 
       case CONTACTS_PACKET:
         let contacts = JSON.parse(packet.contacts);
+
         if (contacts) {
           onlineCount = 0;
           contactList = [];
+
           for (let i = 0; i < contacts.length; i++) {
             if (contacts[i].Online) {
               onlineCount++;
@@ -144,18 +149,17 @@
             });
           }
           contactList = contactList;
-        } else return;
+        }
+        
         break;
       case SEND_CONTACT_REQUEST_PACKET_RESPONSE:
         modal.handleResponse(packet);
         break;
 
       case CHAT_MESSAGES_PACKET:
-        messageContainer.innerHTML = '';
-      
-        let messages = JSON.parse(packet.messages);
+        messageContainer.innerHTML = "";
 
-        let receiverId = packet.receiver;
+        let messages = JSON.parse(packet.messages);
 
         for (let i = 0; i < messages.length; i++) {
           const message = messages[i];
@@ -176,7 +180,9 @@
           messageContainer.scrollTop = messageContainer.scrollHeight;
         }
         break;
+
       default:
+        console.log(`Unknow packet type: ${packet}`)
         break;
     }
   }
@@ -205,7 +211,6 @@
     let elementId = event.target.dataset.elementId;
 
     contactRequest.splice(elementId, 1);
-    //contactRequest = contactRequest;
 
     send({
       id: CONTACT_REQUEST_PACKET,
@@ -220,7 +225,6 @@
     let elementId = event.target.dataset.elementId;
 
     contactRequest.splice(elementId, 1);
-    //contactRequest = contactRequest;
 
     send({
       id: CONTACT_REQUEST_PACKET,

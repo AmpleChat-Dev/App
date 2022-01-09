@@ -24,14 +24,16 @@
     }
 
     function send(){
-        if(!userName) {
-            errorMessage = "Please enter a username"
+        if(!groupName) {
+            errorMessage = "Please enter a group name"
             return;
         }
         
         sendPacket({
             id: SEND_CONTACT_REQUEST_PACKET,
-            username: userName
+            groupName: groupName,
+            allowContent: allowContent,
+            groupSize: groupSize,
         });
     }
 
